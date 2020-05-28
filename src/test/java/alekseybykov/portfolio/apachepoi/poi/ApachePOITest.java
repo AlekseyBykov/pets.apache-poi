@@ -13,7 +13,7 @@ public class ApachePOITest {
 	public void testGenerateOldFormatXlsFile() {
 		Workbook workbook = new HSSFWorkbook();
 		workbook.createSheet("Tab name here");
-		try (FileOutputStream outputStream = new FileOutputStream("xls/simple.xls")) {
+		try (FileOutputStream outputStream = new FileOutputStream("xls/empty.xls")) {
 			workbook.write(outputStream);
 			workbook.close();
 		} catch (IOException e) {
