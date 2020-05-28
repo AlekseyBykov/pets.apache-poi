@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.BeforeClass;
 
@@ -47,12 +48,14 @@ public class ApachePOIOOXMLTestBase {
 	private Workbook createXlsxWorkbook(List<Book> books) {
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet(Consts.TAB_NAME.toString());
-		createXlsxHeader(sheet);
-		createXlsxTable(sheet, books);
+		createHeaderArea(sheet);
+		createTableArea(sheet, books);
+		setAutoFilter(sheet);
+		setZoom(sheet);
 		return workbook;
 	}
 
-	private void createXlsxHeader(Sheet sheet) {
+	private void createHeaderArea(Sheet sheet) {
 		Row row = sheet.createRow(0);
 		CellStyle cellStyle = createStyleForHeaderCell(sheet);
 		for (int i = 0; i < 5; i++) {
@@ -78,7 +81,7 @@ public class ApachePOIOOXMLTestBase {
 		}
 	}
 
-	private void createXlsxTable(Sheet sheet, List<Book> books) {
+	private void createTableArea(Sheet sheet, List<Book> books) {
 		CellStyle cellStyle = createStyleForTableCell(sheet);
 		for (int i = 0; i < books.size(); i++) {
 			Row row = sheet.createRow(i + 1);
@@ -153,5 +156,14 @@ public class ApachePOIOOXMLTestBase {
 		cellStyle.setBorderLeft(BorderStyle.THIN);
 
 		return cellStyle;
+	}
+
+	private void setAutoFilter(Sheet sheet) {
+		sheet.setAutoFilter(new CellRangeAddress(sheet.getFirstRowNum(), sheet.getLastRowNum(),
+				sheet.getRow(0).getFirstCellNum(), sheet.getRow(0).getLastCellNum() - 1));
+	}
+
+	private void setZoom(Sheet sheet) {
+		sheet.setZoom(150);
 	}
 }
