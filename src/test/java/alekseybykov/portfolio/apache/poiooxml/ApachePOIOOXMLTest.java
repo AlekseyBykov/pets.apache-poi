@@ -10,8 +10,9 @@ import org.junit.Test;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static java.lang.String.format;
 
 public class ApachePOIOOXMLTest extends ApachePOIOOXMLTestBase {
 
@@ -28,23 +29,17 @@ public class ApachePOIOOXMLTest extends ApachePOIOOXMLTestBase {
 
 	@Test
 	public void testCreateXlsxFileWithData() {
-		Book book1 = new BookBuilder()
-				.setIsbn("xxx-xxx-xxx-1")
-				.setAuthor("Author 1")
+		List<Book> books = new ArrayList<>();
+		for (int i = 0; i < 100; i ++) {
+			books.add(new BookBuilder()
+				.setIsbn(format("%s%d", "xxx-xxx-xxx-", i))
+				.setAuthor(format("%s%d", "Author ", i))
 				.setPrice(1.1f)
-				.setPublisher("Publisher 1")
-				.setTitle("Title 1")
-				.build();
+				.setPublisher(format("%s%d", "Publisher ", i))
+				.setTitle(format("%s%d", "Title ", i))
+				.build());
+		}
 
-		Book book2 = new BookBuilder()
-				.setIsbn("xxx-xxx-xxx-2")
-				.setAuthor("Author 2")
-				.setPrice(1.2f)
-				.setPublisher("Publisher 2")
-				.setTitle("Title 2")
-				.build();
-
-		List<Book> books = new ArrayList<>(Arrays.asList(book1, book2));
 		createAndPopulateXlsxWithData("xlsx/with-data.xlsx", books);
 	}
 }
