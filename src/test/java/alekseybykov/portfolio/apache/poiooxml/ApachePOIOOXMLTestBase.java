@@ -15,6 +15,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.AUTHOR_TITLE;
+import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.BOOK_TITLE;
+import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.ISBN_TITLE;
+import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.PRICE_TITLE;
+import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.PUBLISHER_TITLE;
+
 public class ApachePOIOOXMLTestBase {
 
 	private final int headerRowIdx = 0;
@@ -27,7 +33,6 @@ public class ApachePOIOOXMLTestBase {
 	@BeforeClass
 	public static void init() throws IOException {
 		FileUtils.cleanDirectory(new File("xlsx"));
-		FileUtils.cleanDirectory(new File("xls"));
 	}
 
 	protected void createAndPopulateXlsxWithData(String path, List<Book> books) {
@@ -56,11 +61,11 @@ public class ApachePOIOOXMLTestBase {
 		Cell publisherCell = row.createCell(publisherColumnIdx);
 		Cell priceCell = row.createCell(priceColumnIdx);
 
-		isbnCell.setCellValue("ISBN");
-		titleCell.setCellValue("BOOK TITLE");
-		authorCell.setCellValue("AUTHOR");
-		publisherCell.setCellValue("PUBLISHER");
-		priceCell.setCellValue("PRICE");
+		isbnCell.setCellValue(ISBN_TITLE.toString());
+		titleCell.setCellValue(BOOK_TITLE.toString());
+		authorCell.setCellValue(AUTHOR_TITLE.toString());
+		publisherCell.setCellValue(PUBLISHER_TITLE.toString());
+		priceCell.setCellValue(PRICE_TITLE.toString());
 	}
 
 	private void createXlsxTable(Sheet sheet, List<Book> books) {
