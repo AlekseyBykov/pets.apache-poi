@@ -1,6 +1,5 @@
 package alekseybykov.portfolio.apache.poi;
 
-import alekseybykov.portfolio.apache.poiooxml.consts.Consts;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -11,8 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.TAB_NAME;
-
+// For MS Excel 97
 public class ApachePOITest {
 
 	@Before
@@ -24,7 +22,7 @@ public class ApachePOITest {
 	public void testCreateEmptyXlsFile() {
 		try (Workbook workbook = new HSSFWorkbook();
 		        FileOutputStream fileOutputStream = new FileOutputStream("xls/empty.xls")) {
-			workbook.createSheet(TAB_NAME.toString());
+			workbook.createSheet("TAB_NAME");
 			workbook.write(fileOutputStream);
 		} catch (IOException e) {
 			e.printStackTrace();

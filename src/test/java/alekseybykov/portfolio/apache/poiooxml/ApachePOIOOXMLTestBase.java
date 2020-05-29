@@ -1,6 +1,5 @@
 package alekseybykov.portfolio.apache.poiooxml;
 
-import alekseybykov.portfolio.apache.poiooxml.consts.Consts;
 import alekseybykov.portfolio.apache.poiooxml.model.Book;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -22,18 +21,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-
-import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.AUTHOR_TITLE;
-import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.BOOK_TITLE;
-import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.ISBN_TITLE;
-import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.PRICE_TITLE;
-import static alekseybykov.portfolio.apache.poiooxml.consts.Consts.PUBLISHER_TITLE;
+import java.util.Objects;
 
 public class ApachePOIOOXMLTestBase {
 
 	@BeforeClass
 	public static void init() throws IOException {
+		System.setProperty("java.util.logging.config.file", ClassLoader.getSystemResource("logging.properties").getPath());
 		FileUtils.cleanDirectory(new File("xlsx"));
+	}
+
+	protected File getFile(String fileName) {
+		return new File(Objects.requireNonNull(getClass().getClassLoader().getResource(fileName)).getFile());
 	}
 
 	protected void createAndPopulateXlsxWithData(String path, List<Book> books) {
@@ -47,7 +46,7 @@ public class ApachePOIOOXMLTestBase {
 
 	private Workbook createXlsxWorkbook(List<Book> books) {
 		Workbook workbook = new XSSFWorkbook();
-		Sheet sheet = workbook.createSheet(Consts.TAB_NAME.toString());
+		Sheet sheet = workbook.createSheet("TAB NAME");
 		createHeaderArea(sheet);
 		createTableArea(sheet, books);
 		setAutoFilter(sheet);
@@ -63,19 +62,19 @@ public class ApachePOIOOXMLTestBase {
 			sheet.autoSizeColumn(i);
 
 			if (i == 0) {
-				cell.setCellValue(ISBN_TITLE.toString());
+				cell.setCellValue("ISBN");
 				cell.setCellStyle(cellStyle);
 			} else if (i == 1) {
-				cell.setCellValue(BOOK_TITLE.toString());
+				cell.setCellValue("BOOK TITLE");
 				cell.setCellStyle(cellStyle);
 			} else if (i == 2) {
-				cell.setCellValue(AUTHOR_TITLE.toString());
+				cell.setCellValue("AUTHOR");
 				cell.setCellStyle(cellStyle);
 			} else if (i == 3) {
-				cell.setCellValue(PUBLISHER_TITLE.toString());
+				cell.setCellValue("PUBLISHER");
 				cell.setCellStyle(cellStyle);
 			} else {
-				cell.setCellValue(PRICE_TITLE.toString());
+				cell.setCellValue("PRICE");
 				cell.setCellStyle(cellStyle);
 			}
 		}
