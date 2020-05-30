@@ -2,31 +2,55 @@ package alekseybykov.portfolio.apache.poiooxml.model;
 
 import java.util.Objects;
 
+/**
+ * @author Aleksey Bykov
+ * @since 28.05.2020
+ */
 public class Book {
-	protected String isbn;
-	protected String title;
-	protected String author;
-	protected String publisher;
-	protected float price;
+	private String isbn;
+	private String title;
+	private String author;
+	private String publisher;
+	private int price;
 
 	public String getIsbn() {
 		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getAuthor() {
 		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public String getPublisher() {
 		return publisher;
 	}
 
-	public float getPrice() {
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public int getPrice() {
 		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	@Override
@@ -34,9 +58,9 @@ public class Book {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Book book = (Book) o;
-		return Float.compare(book.price, price) == 0 &&
-		       Objects.equals(isbn, book.isbn) &&
-		       Objects.equals(title, book.title) &&
+		return price == book.price &&
+		       isbn.equals(book.isbn) &&
+		       title.equals(book.title) &&
 		       Objects.equals(author, book.author) &&
 		       Objects.equals(publisher, book.publisher);
 	}

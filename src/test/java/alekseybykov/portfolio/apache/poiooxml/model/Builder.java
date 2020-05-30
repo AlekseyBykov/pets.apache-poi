@@ -1,5 +1,9 @@
 package alekseybykov.portfolio.apache.poiooxml.model;
 
+/**
+ * @author Aleksey Bykov
+ * @since 28.05.2020
+ */
 public interface Builder {
 
 	Builder setIsbn(String isbn);
@@ -10,7 +14,7 @@ public interface Builder {
 
 	Builder setPublisher(String publisher);
 
-	Builder setPrice(float price);
+	Builder setPrice(int price);
 
 	Book build();
 }

@@ -10,7 +10,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-// For MS Excel 97
+/**
+ * Examples of manipulations with MS Excel 97.
+ *
+ * @author Aleksey Bykov
+ * @since 28.05.2020
+ */
 public class ApachePOITest {
 
 	@Before
