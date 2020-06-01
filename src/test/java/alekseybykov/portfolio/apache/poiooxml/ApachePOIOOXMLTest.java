@@ -42,7 +42,7 @@ public class ApachePOIOOXMLTest extends ApachePOIOOXMLTestBase {
 			workbook.createSheet("TAB_NAME");
 			workbook.write(outputStream);
 		} catch (IOException ex) {
-			logger.severe("Error while reading the file:" + ex.getMessage());
+			logger.severe("Error while writing to the file: " + ex.getMessage());
 		}
 	}
 
@@ -72,13 +72,13 @@ public class ApachePOIOOXMLTest extends ApachePOIOOXMLTestBase {
 			final int dateIdx = 0;
 			final int eurIdx = 2;
 			final int gbpIdx = 3;
-			final int hrdOffset = 1;
+			final int hdrOffset = 1;
 
 			DataFormatter dataFormatter = new DataFormatter();
 			Workbook workbook = WorkbookFactory.create(inputStream);
 			Sheet sheet = workbook.getSheetAt(NumberUtils.INTEGER_ZERO);
 			assertEquals("exchange rates", sheet.getSheetName());
-			for (int rowNum = sheet.getFirstRowNum() + hrdOffset; rowNum <= sheet.getLastRowNum(); rowNum++) {
+			for (int rowNum = sheet.getFirstRowNum() + hdrOffset; rowNum <= sheet.getLastRowNum(); rowNum++) {
 				Row row = sheet.getRow(rowNum);
 				for (int columnNum = NumberUtils.INTEGER_ZERO; columnNum < row.getLastCellNum(); columnNum++) {
 					Cell cell = row.getCell(columnNum);
@@ -100,9 +100,9 @@ public class ApachePOIOOXMLTest extends ApachePOIOOXMLTestBase {
 			assertThat(gbps, is(gbpsFixture));
 
 		} catch (IOException ex) {
-			logger.severe("Error while reading the file:" + ex.getMessage());
+			logger.severe("Error while reading the file: " + ex.getMessage());
 		} catch (InvalidFormatException ex) {
-			logger.severe("Invalid file format:" + ex.getMessage());
+			logger.severe("Invalid file format: " + ex.getMessage());
 		}
 	}
 }
