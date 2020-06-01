@@ -1,5 +1,6 @@
 package alekseybykov.portfolio.apache.poiooxml;
 
+import alekseybykov.portfolio.apache.poiooxml.helpers.CustomFileHelper;
 import alekseybykov.portfolio.apache.poiooxml.model.Book;
 import alekseybykov.portfolio.apache.poiooxml.model.BookBuilder;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -19,8 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import alekseybykov.portfolio.apache.utils.FileUtils;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
@@ -64,7 +63,7 @@ public class ApachePOIOOXMLTest extends ApachePOIOOXMLTestBase {
 
 	@Test
 	public void testReadXlsxWithOneSheet() {
-		try (InputStream inputStream = new FileInputStream(FileUtils.getFileByName("exchange-rates-2020-may.xlsx"))) {
+		try (InputStream inputStream = new FileInputStream(CustomFileHelper.getFileByName("exchange-rates-2020-may.xlsx"))) {
 			List<String> dates = new ArrayList<>();
 			List<String> eurs = new ArrayList<>();
 			List<String> gbps = new ArrayList<>();
