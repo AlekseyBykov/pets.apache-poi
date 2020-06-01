@@ -1,11 +1,10 @@
-package alekseybykov.portfolio.apache.poiooxml;
+package alekseybykov.portfolio.apache.poi;
 
-import alekseybykov.portfolio.apache.poiooxml.helpers.CustomXSSFHelper;
-import alekseybykov.portfolio.apache.poiooxml.model.Book;
+import alekseybykov.portfolio.apache.poi.officeopen.helpers.CustomXSSFHelper;
+import alekseybykov.portfolio.apache.poi.officeopen.model.Book;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.BeforeClass;
 
@@ -20,9 +19,9 @@ import java.util.logging.Logger;
  * @author Aleksey Bykov
  * @since 28.05.2020
  */
-public class ApachePOIOOXMLTestBase {
+public class ApachePOITestBase {
 
-	protected static final Logger logger = Logger.getLogger(ApachePOIOOXMLTestBase.class.getPackage().getName());
+	protected static final Logger logger = Logger.getLogger(ApachePOITestBase.class.getPackage().getName());
 
 	protected final List<String> datesFixture = Arrays.asList(
 		"28/05/20", "27/05/20", "26/05/20", "25/05/20",
@@ -55,6 +54,7 @@ public class ApachePOIOOXMLTestBase {
 	@BeforeClass
 	public static void init() throws IOException {
 		System.setProperty("java.util.logging.config.file", ClassLoader.getSystemResource("logging.properties").getPath());
+		FileUtils.cleanDirectory(new File("xls"));
 		FileUtils.cleanDirectory(new File("xlsx"));
 	}
 

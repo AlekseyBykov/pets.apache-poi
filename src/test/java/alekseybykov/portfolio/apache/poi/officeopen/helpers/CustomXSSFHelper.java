@@ -1,6 +1,6 @@
-package alekseybykov.portfolio.apache.poiooxml.helpers;
+package alekseybykov.portfolio.apache.poi.officeopen.helpers;
 
-import alekseybykov.portfolio.apache.poiooxml.model.Book;
+import alekseybykov.portfolio.apache.poi.officeopen.model.Book;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;

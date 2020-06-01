@@ -1,4 +1,4 @@
-package alekseybykov.portfolio.apache.poiooxml.model;
+package alekseybykov.portfolio.apache.poi.officeopen.model;
 
 import java.util.Objects;
 

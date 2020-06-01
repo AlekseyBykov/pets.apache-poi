@@ -1,4 +1,4 @@
-package alekseybykov.portfolio.apache.poiooxml.helpers;
+package alekseybykov.portfolio.apache.poi.officeopen.helpers;
 
 import java.io.File;
 import java.util.Objects;
