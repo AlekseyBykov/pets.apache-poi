@@ -4,7 +4,6 @@ import alekseybykov.portfolio.apache.poi.officeopen.model.Book;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -20,17 +19,17 @@ import java.util.List;
  * @since 01.06.2020
  */
 public class CustomXSSFHelper {
+	private final static int isbnIdx = 0;
+	private final static int titleIdx = 1;
+	private final static int authorIdx = 2;
+	private final static int publisherIdx = 3;
+
 	public static void createHeaderAreaForSheet(Sheet sheet) {
-		final int isbnIdx = 0;
-		final int titleIdx = 1;
-		final int authorIdx = 2;
-		final int publisherIdx = 3;
 		Row row = sheet.createRow(0);
 		CellStyle cellStyle = createStyleForHeaderInSheet(sheet);
 		for (int i = 0; i < 5; i++) {
 			Cell cell = row.createCell(i);
 			sheet.autoSizeColumn(i);
-
 			if (i == isbnIdx) {
 				cell.setCellValue("ISBN");
 			} else if (i == titleIdx) {
@@ -53,23 +52,18 @@ public class CustomXSSFHelper {
 			for (int j = 0; j < 5; j++) {
 				Cell cell = row.createCell(j);
 				sheet.autoSizeColumn(j);
-
-				if (j == 0) {
+				if (j == isbnIdx) {
 					cell.setCellValue(books.get(i).getIsbn());
-					cell.setCellStyle(cellStyle);
-				} else if (j == 1) {
+				} else if (j == titleIdx) {
 					cell.setCellValue(books.get(i).getTitle());
-					cell.setCellStyle(cellStyle);
-				} else if (j == 2) {
+				} else if (j == authorIdx) {
 					cell.setCellValue(books.get(i).getAuthor());
-					cell.setCellStyle(cellStyle);
-				} else if (j == 3) {
+				} else if (j == publisherIdx) {
 					cell.setCellValue(books.get(i).getPublisher());
-					cell.setCellStyle(cellStyle);
 				} else {
 					cell.setCellValue(books.get(i).getPrice());
-					cell.setCellStyle(cellStyle);
 				}
+				cell.setCellStyle(cellStyle);
 			}
 		}
 	}
@@ -80,17 +74,12 @@ public class CustomXSSFHelper {
 	}
 
 	public static void setZoomForSheet(Sheet sheet) {
-		sheet.setZoom(150);
+		sheet.setZoom(110);
 	}
 
 	private static CellStyle createStyleForTableCellInSheet(Sheet sheet) {
-		Font font = sheet.getWorkbook().createFont();
-		font.setItalic(true);
-		font.setFontName("Arial");
-		font.setFontHeightInPoints((short)10);
-
 		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-		cellStyle.setFont(font);
+		cellStyle.setFont(createFont(sheet, (short) 10));
 
 		cellStyle.setTopBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
 		cellStyle.setBorderTop(BorderStyle.THIN);
@@ -109,29 +98,25 @@ public class CustomXSSFHelper {
 
 	private static CellStyle createStyleForHeaderInSheet(Sheet sheet) {
 		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-		cellStyle.setFont(createFont(sheet));
+		cellStyle.setFont(createFont(sheet, (short) 16));
 
-		cellStyle.setAlignment(HorizontalAlignment.CENTER);
+		cellStyle.setAlignment(HorizontalAlignment.LEFT);
 		cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
-		cellStyle.setBorderTop(BorderStyle.MEDIUM);
-		cellStyle.setBorderBottom(BorderStyle.MEDIUM);
+		cellStyle.setBorderTop(BorderStyle.THIN);
+		cellStyle.setBorderBottom(BorderStyle.THIN);
 
-		cellStyle.setBorderRight(BorderStyle.MEDIUM);
-		cellStyle.setBorderLeft(BorderStyle.MEDIUM);
-
-		cellStyle.setFillForegroundColor(IndexedColors.GREY_80_PERCENT.getIndex());
-		cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		cellStyle.setBorderRight(BorderStyle.THIN);
+		cellStyle.setBorderLeft(BorderStyle.THIN);
 
 		return cellStyle;
 	}
 
-	private static Font createFont(Sheet sheet) {
+	private static Font createFont(Sheet sheet, short fontSize) {
 		Font font = sheet.getWorkbook().createFont();
-		font.setBold(true);
 		font.setFontName("Arial");
-		font.setFontHeightInPoints((short)21);
-		font.setColor(IndexedColors.WHITE.getIndex());
+		font.setFontHeightInPoints(fontSize);
+		font.setColor(IndexedColors.BLACK.getIndex());
 		return font;
 	}
 }
